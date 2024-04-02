@@ -42,6 +42,8 @@ class FaceRecognition:
         # Button
         b1_1 = Button(f_lbl, text="RECOGNIZE ME", cursor="hand2", command=self.face_recog, font=("times new roman", 30, "bold"), bg="#A52A2A", fg="white")
         b1_1.place(x=520, y=600, width=500, height=60)
+        # Bind the <Return> event to close the window
+        
 
     # Face recognition method
     def face_recog(self):
@@ -102,8 +104,11 @@ class FaceRecognition:
                             cv2.putText(frame, line, (text_position[0], text_position[1] + i*30), font, font_scale, font_color, thickness)
 
             cv2.imshow("Camera", frame)
-            if cv2.waitKey(1) & 0xFF == ord("q"):
+            key = cv2.waitKey(1)
+            if key == ord("q"):
                 break
+            elif key == 13:  # Enter key
+                 break  
 
         video_capture.release()
         cv2.destroyAllWindows()
@@ -111,4 +116,8 @@ class FaceRecognition:
 if __name__ == "__main__":
     root = tk.Tk()
     obj = FaceRecognition(root)
+    root.mainloop()
+    
+    root.bind('<Return>', lambda event: root.destroy())
+    
     root.mainloop()
