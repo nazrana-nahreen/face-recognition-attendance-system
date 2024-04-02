@@ -118,6 +118,4 @@ if __name__ == "__main__":
     obj = FaceRecognition(root)
     root.mainloop()
     
-    root.bind('<Return>', lambda event: root.destroy())
-    
-    root.mainloop()
+   
