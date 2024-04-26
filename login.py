@@ -6,15 +6,16 @@ from main import Face_Recognition_System
 import mysql.connector
 from tkinter import *
 from PIL import Image, ImageTk
-from student import Student
+from student import Admin
 from train import Train
 from takeattendance import TAKEATTENDANCE
 from recognition import FaceRecognition
 from developer import Developer
 from help import Help
+from studentpanel import Student
 import os
-import tkinter
 from tkinter import messagebox
+from tkinter.simpledialog import askstring
 
 
 
@@ -432,11 +433,13 @@ class Register:
      
   
             
+
 class Face_Recognition_System:
     def __init__(self, root):
         self.root = root
         self.root.geometry("1530x790+0+0")
         self.root.title("Face Recognition System")
+        self.admin_password = "admin123"  # Define the admin password
 
         # Get screen dimensions
         screen_width = self.root.winfo_screenwidth()
@@ -466,19 +469,19 @@ class Face_Recognition_System:
             title_lbl.place(x=0, y=0, width=screen_width, height=45)
 
             # Load the student image
-            student_img = Image.open(r"C:\Users\DELL\Desktop\newFace Recognition, Student Attendance System\images\student1.jpg")
+            student_img = Image.open(r"C:\Users\DELL\Desktop\newFace Recognition, Student Attendance System\images\Student Panel (8).jpg")
             student_img = student_img.resize((220, 220), Image.LANCZOS)
             self.student_photoimg = ImageTk.PhotoImage(student_img)
 
             # Create and place the student button
-            b1 = Button(self.root, image=self.student_photoimg,command=self.student_details, cursor='hand2')
-            b1.place(x=200, y=100, width=220, height=220)
+            b1 = Button(self.root, image=self.student_photoimg, command=self.check_admin_password, cursor='hand2')
+            b1.place(x=200, y=380, width=220, height=220)
 
-            b1_1 = Button(self.root, text="STUDENT DETAILS",command=self.student_details, cursor='hand2', font=("times new roman", 15, "bold"), bg="darkblue", fg="white")
-            b1_1.place(x=200, y=310, width=220, height=40)
+            b1_1 = Button(self.root, text="ADMIN PANEL", command=self.check_admin_password, cursor='hand2', font=("times new roman", 15, "bold"), bg="darkblue", fg="white")
+            b1_1.place(x=200, y=560, width=220, height=40)
 
             # Load the face scan image
-            facescan_img = Image.open(r"C:\Users\DELL\Desktop\newFace Recognition, Student Attendance System\images\facescan.jpg")
+            facescan_img = Image.open(r"C:\Users\DELL\Desktop\newFace Recognition, Student Attendance System\images\facescan (2).jpg")
             facescan_img = facescan_img.resize((220, 220), Image.LANCZOS)
             self.facescan_photoimg = ImageTk.PhotoImage(facescan_img)
 
@@ -490,7 +493,7 @@ class Face_Recognition_System:
             b2_1.place(x=500, y=310, width=220, height=40)
 
             # Load the attendance face image
-            attendance_img = Image.open(r"C:\Users\DELL\Desktop\newFace Recognition, Student Attendance System\images\attendance.jpg")
+            attendance_img = Image.open(r"C:\Users\DELL\Desktop\newFace Recognition, Student Attendance System\images\Student Panel (3).jpg")
             attendance_img = attendance_img.resize((220, 220), Image.LANCZOS)
             self.attendance_photoimg = ImageTk.PhotoImage(attendance_img)
 
@@ -503,7 +506,7 @@ class Face_Recognition_System:
               
               
             # Load the help image
-            help_img = Image.open(r"C:\Users\DELL\Desktop\newFace Recognition, Student Attendance System\images\help.jpg")
+            help_img = Image.open(r"C:\Users\DELL\Desktop\newFace Recognition, Student Attendance System\images\Student Panel (4).jpg")
             help_img = help_img.resize((220, 220), Image.LANCZOS)
             self.help_photoimg = ImageTk.PhotoImage(help_img)
 
@@ -515,32 +518,22 @@ class Face_Recognition_System:
             b4_1.place(x=1100, y=310, width=220, height=40)
 
 
-             ########################## Load the train image
-            train_img = Image.open(r"C:\Users\DELL\Desktop\newFace Recognition, Student Attendance System\images\train.jpg")
-            train_img = train_img.resize((220, 220), Image.LANCZOS)
-            self.train_photoimg = ImageTk.PhotoImage(train_img)
-
-            # Create and place the help button
-            b5 = Button(self.root, image=self.train_photoimg, cursor='hand2',command=self.train_data)
-            b5.place(x=200, y=380, width=220, height=220)
-
-            b5_1 = Button(self.root, text="TRAIN DATA", cursor='hand2',command=self.train_data, font=("times new roman", 15, "bold"), bg="darkblue", fg="white")
-            b5_1.place(x=200, y=560, width=220, height=40)
+            
 
               ################  # Load the photos image
-            photos_img = Image.open(r"C:\Users\DELL\Desktop\newFace Recognition, Student Attendance System\images\photos.jpg")
+            photos_img = Image.open(r"C:\Users\DELL\Desktop\newFace Recognition, Student Attendance System\images\Student Panel (12).jpg")
             photos_img = photos_img.resize((220, 220), Image.LANCZOS)
             self.photos_photoimg = ImageTk.PhotoImage(photos_img)
 
             # Create and place the photos button
-            b6 = Button(self.root, image=self.photos_photoimg, cursor='hand2',command=self.open_img)
+            b6 = Button(self.root, image=self.photos_photoimg, cursor='hand2',command=self.check_admin_password_photos)
             b6.place(x=500, y=380, width=220, height=220)
 
-            b6_1 = Button(self.root, text="PHOTOS", cursor='hand2',command=self.open_img, font=("times new roman", 15, "bold"), bg="darkblue", fg="white")
+            b6_1 = Button(self.root, text="STUDENT PHOTOS", cursor='hand2',command=self.check_admin_password_photos, font=("times new roman", 15, "bold"), bg="darkblue", fg="white")
             b6_1.place(x=500, y=560, width=220, height=40)
             
               ################  # Load the developer image
-            dev_img = Image.open(r"C:\Users\DELL\Desktop\newFace Recognition, Student Attendance System\images\developer.jpg")
+            dev_img = Image.open(r"C:\Users\DELL\Desktop\newFace Recognition, Student Attendance System\images\Student Panel (9).jpg")
             dev_img = dev_img.resize((220, 220), Image.LANCZOS)
             self.dev_photoimg = ImageTk.PhotoImage(dev_img)
 
@@ -550,9 +543,23 @@ class Face_Recognition_System:
 
             b7_1 = Button(self.root, text="DEVELOPER", cursor='hand2',command=self.developer_data, font=("times new roman", 15, "bold"), bg="darkblue", fg="white")
             b7_1.place(x=800, y=560, width=220, height=40)
+            
+            #############student panel####
+            
+            studentpanel_img = Image.open(r"C:\Users\DELL\Desktop\newFace Recognition, Student Attendance System\images\Student Panel.jpg")
+            studentpanel_img = studentpanel_img.resize((220, 220), Image.LANCZOS)
+            self.studentpanel_photoimg = ImageTk.PhotoImage(studentpanel_img)
+
+            # Create and place the studentpanel button
+            b9 = Button(self.root, image=self.studentpanel_photoimg, cursor='hand2')
+            b9.place(x=200, y=100, width=220, height=220)
+
+            b9_1 = Button(self.root, text="STUDENT PANEL", cursor='hand2',command=self.studentpanel, font=("times new roman", 15, "bold"), bg="darkblue", fg="white")
+            b9_1.place(x=200, y=300, width=220, height=40)
+            
 
              ################  # Load the exit image
-            exit_img = Image.open(r"C:\Users\DELL\Desktop\newFace Recognition, Student Attendance System\images\exit.jpg")
+            exit_img = Image.open(r"C:\Users\DELL\Desktop\newFace Recognition, Student Attendance System\images\Student Panel (10).jpg")
             exit_img = exit_img.resize((220, 220), Image.LANCZOS)
             self.exit_photoimg = ImageTk.PhotoImage(exit_img)
 
@@ -571,12 +578,28 @@ class Face_Recognition_System:
         if self.iExit:
            self.root.destroy()
         else:
-            return       
+            return      
+        
+        
+        
+    def check_admin_password(self):
+        password = askstring("Password", "Enter admin password:")
+        if password == self.admin_password:
+            self.student_details()
+        else:
+            messagebox.showerror("Error", "Incorrect password!")
+
+    def check_admin_password_photos(self):
+        password = askstring("Password", "Enter admin password:")
+        if password == self.admin_password:
+            self.open_img()
+        else:
+            messagebox.showerror("Error", "Incorrect password!")
 
     #=========function buttons===================
     def student_details(self):
         self.new_window = Toplevel(self.root)
-        self.app = Student(self.new_window)     
+        self.app = Admin(self.new_window)     
     def train_data (self):
         self.new_window = Toplevel(self.root)
         self.app = Train(self.new_window)  
@@ -596,6 +619,26 @@ class Face_Recognition_System:
     def help_data(self):
         self.new_window=Toplevel(self.root)
         self.app=Help(self.new_window)        
+    def studentpanel(self):
+        self.new_window=Toplevel(self.root)
+        self.app=Student(self.new_window)  
+           
+           
+           
+           
+           
+           
+           
+            
+
+
+
+
+
+
+
+     
+   
                   
             
                        
