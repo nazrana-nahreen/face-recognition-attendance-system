@@ -11,7 +11,7 @@ import tkinter.simpledialog as simpledialog
 
 
 
-class Student:
+class Admin:
     def __init__(self, root):
         self.root = root
         self.root.geometry("1530x790+0+0")
@@ -65,7 +65,7 @@ class Student:
         logoside_lbl.place(x=100, y=0)  # Position the logo over the title label
 
         # Create a Label for the title
-        title_lbl = Label(self.root, text="STUDENT MANAGEMENT SYSTEM", font=("times new roman", 18, "bold"), bg="#A52A2A", fg="#DEB887")
+        title_lbl = Label(self.root, text="STUDENT MANAGEMENT SYSTEM ADMIN PANEL", font=("times new roman", 18, "bold"), bg="#A52A2A", fg="#DEB887")
         title_lbl.place(x=0, y=100, width=1530, height=45)
 
         # Create the main frame
@@ -369,59 +369,10 @@ class Student:
         )
         Right_frame.place(x=750, y=10, width=720, height=580)
 
-        # =======Search System===========
-        Search_frame = LabelFrame(
-            Right_frame,
-            bd=2,
-            bg="white",
-            relief=RIDGE,
-            text="Search System",
-            font=("times new roman", 12, "bold"),
-        )
-        Search_frame.place(x=5, y=10, width=700, height=70)
-        search_label = Label(
-            Search_frame,
-            text="Search By:",
-            font=("times new roman", 15, "bold"),
-            bg="red",
-        )
-        search_label.grid(row=0, column=0, padx=10, pady=5, sticky=W)
-
-        search_combo = ttk.Combobox(
-            Search_frame,
-            font=("times new roman", 13, "bold"),
-            state="readonly",
-            width=12,
-        )
-        search_combo["values"] = ("Select", "Roll_No", "Phone_No")
-        search_combo.current(0)
-        search_combo.grid(row=0, column=1, padx=2, pady=10, sticky=W)
-
-        search_entry = ttk.Entry(
-            Search_frame, width=15, font=("times new roman", 13, "bold")
-        )
-        search_entry.grid(row=0, column=2, padx=10, pady=5, sticky=W)
-
-        search_btn = Button(
-            Search_frame,
-            text="Search",
-            width=12,
-            font=("times new roman", 12, "bold"),
-            bg="blue",
-        )
-        search_btn.grid(row=0, column=3, padx=4)
-
-        showAll_btn = Button(
-            Search_frame,
-            text="Show All",
-            width=12,
-            font=("times new roman", 12, "bold"),
-            bg="blue",
-        )
-        showAll_btn.grid(row=0, column=4, padx=4)
+        
         # ===============table frame================
         table_frame = Frame(Right_frame, bd=2, bg="white", relief=RIDGE)
-        table_frame.place(x=5, y=210, width=710, height=350)
+        table_frame.place(x=5, y=10, width=710, height=550)
 
         scroll_x = ttk.Scrollbar(table_frame, orient=HORIZONTAL)
         scroll_y = ttk.Scrollbar(table_frame, orient=VERTICAL)
@@ -811,7 +762,7 @@ class Student:
 
 if __name__ == "__main__":
     root = Tk()
-    obj = Student(root)
+    obj = Admin(root)
     root.mainloop()
 
 
