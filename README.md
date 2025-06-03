@@ -50,4 +50,16 @@ This is a solo software development project created as part of the **CSE-2340: S
 ---
 
 ## 📁 Project Structure
+.
+├── main.py # Entry point
+├── login.py # Login system
+├── register.py # User registration
+├── student.py # Student data
+├── recognition.py # Face recognition logic
+├── train.py # Training data
+├── takeattendance.py # Attendance system
+├── haarcascade_frontalface_default.xml # Face detection model
+├── attendance.csv # Attendance log
+├── *.jpg / *.png / *.avif # Images and icons
+└── *.pyc # Compiled Python files
 
